@@ -1,0 +1,502 @@
+\documentclass{article}
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{listings}
+
+\title{Number Theory Problems and Solutions}
+
+\begin{document}
+
+
+\maketitle
+
+\section*{Acknowledgments}
+I would like to express my gratitude to Jane Street's Academy of Math and Programming for their materials, some of which the problems in this document are from or based on. Their resources have been invaluable in the creation of this compilation.
+
+\section*{Intended Audience}
+This material is designed to be accessible for a wide variety of ages - advanced middle school students onwards. The prerequisite knowledge is minimal, but exposure to more advanced mathematics will be beneficial.
+
+\section{Basics}
+
+\begin{enumerate}
+    \item \textbf{Problem:} What is the rightmost digit (units digit) of the product of all the prime numbers less than 100?
+    
+    \textit{Solution:} The primes less than 100 include 2 and 5 so the product is divisible by 10, thus it ends in 0.
+
+    \item \textbf{Problem:} What are all integer values of $m$ such that $\frac{67}{2m-23}$ is an integer?
+    
+    \textit{Solution:} The expression $\frac{67}{2m-23}$ is an integer if and only if $2m-23$ is a divisor of 67. Since 67 is a prime number, its only divisors are $\pm 1$ and $\pm 67$. We solve for $m$ in each case.
+    \begin{itemize}
+        \item If \(2m - 23 = 1\), then \(2m = 24\) and \(m = 12\).
+        \item If \(2m - 23 = -1\), then \(2m = 22\) and \(m = 11\).
+        \item If \(2m - 23 = 67\), then \(2m = 90\) and \(m = 45\).
+        \item If \(2m - 23 = -67\), then \(2m = -44\) and \(m = -22\).
+    \end{itemize}
+
+    \item \textbf{Problem:} What is half of $4^{50}$?
+    
+    \textit{Solution:} $4^{50}$ = $(2^{2})^{50}$ = $2^{100}$. Dividing by $2$ (halving) gives $2^{99}$.
+
+     \item \textbf{Problem:} The factorial of a positive integer $n$, denoted by $n!$, is the product of all positive integers less than or equal to $n$. Find the greatest prime factor of:
+    \begin{enumerate}
+        \item $100!$
+        \item $99! + 100! + 101!$
+    \end{enumerate}
+
+    \textit{Solution:}
+    \begin{enumerate}
+        \item The greatest prime factor of $100!$ is the largest prime number less than or equal to 100, which is 97.
+        \item For $99! + 100! + 101!$, factor out $99!$:
+        $$99! + 100! + 101! = 99!(1 + 100 + 100 \times 101)$$
+        We know 97 is a factor because it is in $99!$ but note that the inside expression can be written as $101+100\times101$ = $101\times101$ = $101^{2}$. Thus the prime factorization of $99! + 100! + 101!$ is $99!\times101^{2}$ and the biggest prime in it is 101.
+        
+    \end{enumerate}
+
+    \item \textbf{Problem:} Compute 1-2+3-4+5-6+7-8+9-10+11-12+13-14+15-16+17-18+19
+    \textit{Solution:} (-1)*9+19
+
+    \item \textbf{Problem:} Calculate the sum of all consecutive odd numbers from 27 to 43.
+    
+    \textit{Solution:} The series is:
+    
+    $$ S = 27 + 29 + 31 + 33 + 35 + 37 + 39 + 41 + 43 $$
+    $$ S = 43 + 41 + 39 + 37 + 35 + 33 + 31 + 29 + 27 $$
+    $$ 2S = 70 + 70 + 70 + 70 + 70 + 70 + 70 + 70 + 70 $$
+    $$ 2S = 70 \times 9$$
+    $$ S = 35 \times 9 = 315$$
+
+
+
+    \item \textbf{Problem:} How many digits are in $2^{150} \times 5^{50} / 4^{51}?$
+    \textit{Solution:} This is equivalent to:
+    $$\frac{2^{150} \times 5^{50}}{(2^2)^{51}} = \frac{2^{150} \times 5^{50}}{(2)^{102}} = 2^{48}\times5^{50}$$
+    $$ (2\times5)^{48} \times 5^{2} =  10^{48} \times 25$$
+    $$10^{49} \times 2.5$$
+    $10^{x}$ has $x+1$ digits so $10^{49}$ is 50 digits. The 2.5, as it is less than 10, increases the value but does not increase the number of significant digits.
+
+    \item \textbf{Problem:}
+     \begin{enumerate}
+        \item How many three-digit positive integers are there?
+        \item How many of them are divisible by 3?
+        \item How many of them have a sum of the digits equal to 3?
+    \end{enumerate}
+    \textit{Solution:} \begin{enumerate}
+        \item The number of three digit positive integers is the cardinality of the set $\{100,101,102,\ldots999\}$. Subtracting 99 from each element gives $\{1,2,3,\ldots900\}$. Thus, there are 900 three-digit positive integers.
+        \item Similarly, we have the set $\{102,105,108,\ldots999\}$. We can first divide each element by 3.$\{34,35,36, \ldots333\}$. Subtracting 33 yields $\{1,2,3,\ldots300$\}. Thus, there are 300 three-digit integers divisible by 3.
+        \item We can come up with these manually. The biggest integer that can satisfy this is 300. 102 works. 111 works. 120 works. 201 works. 210 works. No more can work, so there are 6 numbers. Note that we can easily verify that these work by summing the digits per the divisibility rule for three.
+    \end{enumerate}
+    \item \textbf{Problem:}
+    What is the square root of the largest perfect square that divides 12! (12 factorial)?
+    \textit{Solution:}
+    $$12! = 12\times11\times10\times9\times8\times7\times6\times5\times4\times3\times2\times1$$
+    For ease, we can go ahead and discard the primes that will only appear once, because they would need a larger power to be a perfect square.
+    The remaining product of interest is $12\times10\times9\times8\times6\times5\times4\times3\times2\times1$
+    The remaining prime factorization is $2^{10}\times3^{4}\times5^{2}$
+    Because all of these have even powers, these form a perfect square.
+    To take the square root, we just cancel out half of each. This is because the square root is the 1/2 power and when you distribute a power, you multiply the powers.  This leaves $$2^{5}\times3^{2}\times5 = 32\times9\times5 = (270+18)\times5 = 1000+350+50+40 = 1440$$
+    \textit{Remark:} Suppose a prime factorization was $2^{10}\times3^{3}\times5^{2}$. Then one of the factors of three is not useful because it makes it an odd power. If we took the square root, we would get $3^{3/2}$ which is not an integer (it is $3\times\sqrt{3}$. Any prime to a non-integer power less than 1 will be a non-integer less than 1 because of what that power means. If it was 1/n where n is a positive integer, there exists some number x such that $x^{n}$ gives the base. That would mean x is a factor with multiplicity n, but because the base is prime by assumption, that is impossible.
+    \item \textbf{Problem:}
+    What is the largest prime factor in 
+    \begin{enumerate}
+        \item $8\times9\times10 + 18\times19\times20$
+        \item $15^{10}+15^{11}+15^{12}+15^{13}$
+    \end{enumerate}
+    \textit{Solution:}
+    \begin{enumerate}
+        \item We can write each term as a product of primes. $$2^{3}\times3^{2}\times2\times5 + 2\times3^{2}\times19\times2^{2}\times5$$  $$= 2^{4}\times3^{2}\times5 + 2^{3}\times3^{2}\times5\times19$$
+        Factoring out terms and notice that $2+19 = 21 = 7\times3$:
+        $$2^{3}\times3^{2}\times5\times(2+19) = 
+        2^{3}\times3^{2}\times5\times(21) = 
+        2^{3}\times3^{2}\times5\times(7\times3)$$
+        Giving a final expression of $$2^{3}\times3^{3}\times{5}\times{7}$$.
+        Thus, 7 is the largest prime.
+        \item Similarly, we will factor out the greatest common factor.
+        $$15^{10} +(15^{10}\times15)+(15^{10}\times15^{2})+(15^{10}+15^{3})$$
+        $$15^{10}\times(1+15+15^{2}+15^{3})$$
+        $$\text{Using the fact that }(ab)^x = a^xb^x$$
+        $$3^{10}5^{10}\times(1+3\times5+3^2\times5^2+3^3\times5^3)$$
+        But, this is not helpful.
+        Instead, the inner expression evaluates to $3616 = 2^5\times113$. This can be computed as a geometric series with a common ratio of 15.
+        113 is prime (we could check this by evaluating up to $\lfloor{\sqrt{113}}\rfloor = 10$. 
+        As the expression is equivalent to $2^{5}\times3^{10}\times5^{10}\times113$, 113 is clearly the largest prime.
+    \end{enumerate}
+    \item \textbf{Problem:}
+    What is the units digit of $\sum_{i=1}^{50} i!  $ (i factorial)?
+    \textit{Solution:} Starting at $5!$, every factorial will have a factor of $10 = 2\times5$ in it because of the recursive definition of the factorial. Thus, we are only interested in the first 4 terms. $$1+2!+3!+4! = 1+2+6+24 = 33$$. 
+    $33 \equiv 3 \pmod{10}.$
+    $\implies$ 3 is the units digit.
+    \item \textbf{Problem:} Let \( n \) be the current calendar year, and let \( m \) denote your birth year. Evaluate each of the following sums:
+
+    \begin{enumerate}
+        \item[(a)] \( 1 + 2 + \ldots + m \)
+        \item[(b)] \( 1 + 2 + \ldots + n \)
+        \item[(c)] \( (m+1) + (m+2) + \ldots + n \)
+        \item[(d)] \( (n+1) + (n+2) + \ldots + 2n \)
+    \end{enumerate}
+
+    \textit{Solution:} We will do this for $n=2020$ and $m = 2005$. 
+    \begin{enumerate} 
+        \item This is the sum of the first $m$ natural numbers.
+        We will prove the formula. 
+        $$S = 1+2+3+4+5+6+\ldots m $$
+        $$S = m+m-1+m-2+\ldots2+1$$
+        $$2S = (m+1)+(m+1)+\ldots(m+1)$$
+        $$2S = m\times(m+1)$$
+        $$S = \frac{m\times(m+1)}{2}$$
+        For $m = 2005$, we get $2{,}009{,}010$
+        \item Similarly, for $n =2020$, we get $2{,}039{,}190$.
+        \item Here, this sum, as m < n is the difference in the two sums: 
+        \\$2{,}009{,}010$ - $2{,}039{,}190$ = $30{,}180$
+        \item We can subtract each term by $n$ to get the original series. Thus, the answer is $2{,}039{,}190$ + $n^2$ as there are $n$ terms that each had $n$ subtracted from them; we have to add them back in.
+        Thus, our answer is $$2{,}039{,}190 \times 2020^2 = 8.32e+12 $$
+        Rigorous Justification: We are proving that:
+        \[
+        \sum_{i=1}^{n} i + n^2 = \sum_{i=n+1}^{2n} i
+        \]
+        
+        Calculating each side, we first find the sum from 1 to \(n\) and add \(n^2\):
+        \[
+        S_1 = \frac{n(n+1)}{2} + n^2
+        \]
+        
+        For the sum from \(n+1\) to \(2n\), we use the formula:
+        \[
+        S_2 = \frac{n(3n+1)}{2}
+        \]
+        
+        Equating the two sums and simplifying:
+        \[
+        \frac{n(n+1)}{2} + n^2 = \frac{n(3n+1)}{2}
+        \]
+        
+        Multiply through by 2 to clear the fraction:
+        \[
+        n(n+1) + 2n^2 = n(3n+1)
+        \]
+        
+        Expanding both sides:
+        \[
+        n^2 + n + 2n^2 = 3n^2 + n
+        \]
+        
+        Since both sides simplify to:
+        \[
+        3n^2 + n = 3n^2 + n
+        \]
+        
+        We conclude that:
+        \[
+        \sum_{i=1}^{n} i + n^2 = \sum_{i=n+1}^{2n} i
+        \]
+        
+        is indeed a true statement for any natural number \(n\).
+                
+        \end{enumerate}
+    \item \textbf{Problem:}
+    Find the 365th character in the repeating pattern below: $$AABBBCCCC (repeat) AABBBCCCC\ldots$$
+    \textit{Solution: This pattern is length $2+3+4 = 9$. We need to find the position of a "cursor" modulo 9. 360 is divisible by 9, so 365 is congruent to 5 under mod 9. Thus it is the 5th character in the pattern: B (B3). }
+    
+    \textit{Note: For any starting point x where we wanted to know where we would be in 364 steps forward, we would use the formula $(x + 364) \mod 9$.}
+
+    \item \textbf{Problem:}
+    What is the remainder when the sum of the first 101 positive integers is divided by 9?
+    
+    \textit{Solution: $S = \frac{101(101 + 1)}{2} = \frac{101 \times 102}{2} = 5151$. Applying the divisibility rule of 9, $5 + 1 + 5 + 1 = 12 \equiv 3 \pmod{9}.$}
+
+    \item \textbf{Problem:}
+    Given that \(\gcd(a, b, c) = 78\) and \(\gcd(c, d) = 130\), what is \(\gcd(a, b, c, d)\)?
+
+    \textit{Solution: We know $78 = 2\times3\times13$ and $130 = 2\times5\times13$. We can deduce that at least one of $a$ and $b$ does not have a factor of 5. Likewise, we can see for certain that $d$ does not have a factor of 3 (we know $c$ does from the first gcd). But, other than that, we know that 13 and 2 divide all numbers. Thus, $26 = gcd(a,b,c,d)$ \\
+    Note: it should be intuitive that given the greatest common divisor  of two subsets of numbers, where these subsets potentially overlap, the gcd of the union of those subsets is the gcd of the two subset gcds. 
+    }
+    \item \textbf{Problem:}
+    Describe all numbers that are divisible by 84 and 48. 
+    
+    \textit{Solution: $84 = 2^2\times3\times7$; $48 = 2^4\times3$
+    \\Thus, to be divisible by both 84 and 48, you have to be divisible by union of highest powers of all the factors: $2^4\times3\times7 = 336$. This is the least common multiple or $lcm(48,84)$. So, the set of all numbers divisible by both 84 and 48 is given by $\{336k \mid k \in \mathbb{Z}\}$.
+    Very informally said, to be divisible by two numbers, you have to be divisible by everything in one number and everything in the other number, but the two numbers share something, you don't need to double count it. This leads to a nice interpretation and relationship between the lcm and gcd. $lcm(n_1,n_2)$ is the product of $n_1$ and $n_2$ but divide out their intersection, $gcd(n_1,n_2)$. In other words,  $$lcm(n_1, n_2) = \frac{n_1 \times n_2}{\gcd(n_1, n_2)}$$
+    $$gcd(n_1, n_2)\times lcm(n_1, n_2) = n_1 \times n_2$$
+    }
+
+    \item \textbf{Problem:}
+    On June 1\textsuperscript{st}, Chris, Bill, and Sam are all out jogging together. Chris tells the others he runs every 9 days, Bill says he runs every 12 days, and Sam says he only runs every 15 days. How many days will it be until they run on the same day again? What will the date be on that day?
+    
+    \textit{Solution: We can view June 1\textsuperscript{st} as the day 0 or starting point, where they intersect. They will next intersect in lcm days. The lcm is $2^2\times3^2\times5 = 4\times9\times5 = 20\times9 = 180$. This is November 28\textsuperscript{th}.}
+
+    \item \textbf{Problem:}
+    Every five months, Hal has to replace the batteries in his calculator. He changed them the first time in May. In what month will they be changed the 25\textsuperscript{th} time?
+
+    \textit{Solution: We want to know what month we will be in after 24 changes. We compute:
+    \[
+    24 \times 5 \mod 12 = 120 \mod 12 \equiv 0 \implies \text{May (since we started in May, it wraps around perfectly)}
+    \]}
+
+    \item \textbf{Problem:}
+    One can find the remainder when the sum
+    \[
+    2 + 9 + 16 + 23 + \cdots + 702
+    \]
+    is divided by 7 with or without finding the actual sum. Do so without evaluating the sum.
+    
+    \textit{Solution: The remainder of the sum is congruent to the sum of the remainders. We are summing $2s$ some number of times. We will find that number of times by first adding 5 and then dividing by 7.
+    \[
+    7 + 14 + 21 + 28 + \cdots + 707
+    \]
+    \[
+    1 + 2 + 3 + 4 + \cdots + 101
+    \]
+    We can see that there are $101$ terms in this sum. 
+    Thus, the remainder is congruent to $2\times101 = 202$. 
+    $$210 \mod 7 \equiv 0 \text{ so } 202 \mod 7 \equiv 210 - 8 \mod 7 \equiv 0 - 8 = -1 = 6$$
+    }
+
+    \item \textbf{Problem:}
+    Russell thinks of an integer number. He tells you that if he adds 100 to his number, the remainder of the new number when divided by 19 is 2. What would be the remainder if he were to multiply his number by 100 instead and then divide it by 19?
+    
+    \textit{Solution: $x+100 \mod 19 = 2$. We know $100 \mod 19 = 5$. Let the remainder when you divide x by $19$ must be congruent to $-3$ or $15$. 
+    We apply the following property:
+    $$(a \mod m) \times (b \mod m) \equiv (ab) \mod m$$
+    Thus, the remainder of $100x$ is congruent to $5 \times -3 = -15$. This is congruent to $4 \pmod{19}$.
+   }
+
+   \item \textbf{Problem:}
+   Use the divisibility rule for 3 to find all possible values for digit \( p \) for which the number \( 437p26 \) is divisible by 3.
+
+    \textit{Solution: We need $3 | (4+3+7+2+6+p) $ or $4+3+7+2+6+p \equiv 0 \pmod{3} = 22 + p$. $p$ $\in \{2, 5, 8\}$  } 
+
+    \item \textbf{Problem:}
+    Find the number of four-digit integers \(2abc\) divisible by 75. You could use the divisibility rule of 3 or not.
+
+    \textit{Solution: The first number that satisfies this is 2025. We need to find the size of the set $\{(2025 + 75x) < 3000 \mid x \in \mathbb{Z^+}\}$. Let us write this as $(2025, 2100, 2175, \ldots 2999)$. Subtracting 1950 from each term, we get $(75, 150, 225,\ldots 1049)$. Dividing by 75, we get the indices for each: $(1, 2, 3, .... 13, 13.989)$. The floor of each index represents the number of integers that satisfy this criterion at or before their original number, so there are 13 numbers in the set. You can think of the floor as "chopping off" the remainder. These translated terms have the same remainder because we just subtracted off 1950, a multiple of 75. }
+    It could have also been easily deduced that 3000 is divisible by 75, so we could either go up to 3000 and subtract 1 or stop at 2925. 
+
+    Algebraically, we could solve 
+    
+    $(2025 + 75x) < 3000 \iff 75x < 975$ $\iff x < 13$, not equal to 13. 
+    
+    So $x$ can equal any integer from 0 to 12 inclusive - 13 possible values.
+
+    \item \textbf{Problem:} Compute $2^{24} \mod 13$
+    
+    \textit{Solution: $2^{24} = 2^62^62^62^6$. $2^6 = 64 \equiv 12 \pmod{13}$. Instead of 12, we can more helpfully view it as -1. Then the remainder of $2^{24}$ is $(-1)^4$ or 1. }
+    
+    We will not prove this fact, but it can be verified through observation. For any integer $x$ and $y$: $2^{x} \equiv 2^{12y+x} \pmod{13}$. We call 2 a generator of $\mathbb{Z}_{13}^*$. This means that $2^{x}$ will generate all 13 possible remainders before repeating one. This tells us that we only need to compute the remainder of $2^{12}$ as it will be the same as $2^24$ due to the repeating nature.
+    
+    Note that 2 is not a generator under a cycle or mod of length 4. This is because the base and the cycle length are not coprime (their gcd is not 1).
+
+
+
+    \item \textbf{Problem:} 
+    Given the sequence:
+    \[ 5 + 55 + 555 + \ldots + 555\ldots5 \]
+    where the last term has 88 fives, find the remainder when the sum of this sequence is divided by 9.
+
+    \textit{Solution: We can apply the divisibility rule of 9. The sum of the digits of each term is increasing by 5 each time. The sum of the digits of each term is 5, 10, 15, ...... When simplified, that will give us the remainder for each term, and then we can apply the additivity (sum of the remainders is the remainder of the sum) property to calculate the overall remainder. 
+    Thus, the remainder is $$5+10+15+20+\ldots(5\times88)$$.
+    Factoring out a 5, $$5(1+2+3+4+\ldots88)$$
+    We apply the formula for the sum of the first $n=88$ natural numbers:
+    $$\frac{n(n+1)}{2} = \frac{88\times89}{2} = 44\times89$$
+    We want to simplify $44\times89 \pmod{9}$. We do so by using the multiplicative property of congruences. 
+    $$(44 \times 89) \pmod{9} = ((44 \mod{9}) \times (89 \mod{9})) \pmod{9}$$
+    The sum of the digits for each will give a value congruent to the remainder. $$8\times17\mod{9} = 8\times8 \pmod{9}$$
+    $$ = 64 \pmod{9} = 10 \pmod{9} \equiv 1$$
+    We must multiply this answer by the 5 we factored out. We can do this again via the multiplicative property of congruences. This gives us a final remainder of 5.
+    }
+
+    \item \textbf{Problem:} 
+    Call an integer \textit{organized} if it is composed of distinct nonzero digits that are arranged in decreasing order from left to right. Find the greatest \textit{organized} integer such that none of its digits divides the number itself.
+
+    \textit{Solution:} 987653
+
+    \item \textbf{Problem:} 
+    Find the largest six-digit number using each of the digits from 1 to 6 once such that this number is divisible by 6, deleting the 6 leaves a number divisible by 5, deleting the 5 leaves a number divisible by 4, and so forth down to 1. Thus, for example, deleting the 6 from 136245 gives 13245, then deleting the 5 gives 1324, and so on.
+
+    \textit{Solution:} 431256 
+
+    \item \textbf{Problem:}
+    Suppose you have two distinct four-element sets comprised of integers $\in[0, 9]$ that have the same lcm. What is the biggest lcm that can be? Elements may be shared across the sets but they cannot be completely identical. 
+
+    \textit{Solution: The set with the largest lcm would be \{9, 8, 7, 5\}. But, no other distinct set can share that lcm per the criteria. It would be most ideal to lose a factor of 2. Something like \{9, 4 or 6, 7, 5\}. But, 4 and 6 don't share the same number of factors of 2, so that isn't going to work. Our next best bet is to lose a power of 3. If that doesn't work, we'll try losing 4 (2 factors of 2). We can't keep 9 in one and 3 or 6 in the other because those have different powers of 3. Thus, our sets have to be \{3 or 6, 8, 7, 5\}. In the case of the set with 6, it doesn't contribute any powers of 2 that the 8 is not already contributing. Thus, the lcm for either of the sets is $3\times2^3\times7\times5 = 840$  }
+
+    \item \textbf{Problem:}
+    When General Han counts the soldiers in his army, he uses the following method. He orders them to line up in rows of 9, then in rows of 10, and finally, in rows of 11, and each time he counts the number of soldiers not in a row. One morning, he finds that there are 7 soldiers left when the rest are in rows of 9, 5 soldiers left when the rest are in rows of 10, and 9 soldiers left when the rest are in rows of 11. He knows that there are 1000 soldiers in his army. How many of the soldiers are present this morning? $295$
+
+    \textit{Solution: This problem will be best solved with the Chinese Remainder Theorem, leveraging the fact that the moduli are coprime. We do not cover it in this text but leave key steps and the answer for those who wish to attempt it. 
+    $$N = 9 \times 10 \times 11 = 990$$
+    $$N_1 = \frac{990}{9} = 110, \quad N_2 = \frac{990}{10} = 99, \quad N_3 = \frac{990}{11} = 90$$
+    Finding inverses\ldots
+    $$x_1 = 110 \times 5 \times 7 = 3850$$
+    $$x_2 = 99 \times 9 \times 5 = 4455$$
+    $$x_3 = 90 \times 6 \times 9 = 4860$$
+    $$n = (3850 + 4455 + 4860) \mod 990 = 13165 \mod 990 = 295$$ }
+    
+    \item \textbf{Problem:}
+    For a positive integer \( n \) (written in decimal notation), let \( S(n) \) denote the sum of the digits of \( n \). Thus, \( S(S(n)) \) is the sum of the digits of \( S(n) \). For example, \( S(S(98078)) = S(32) = 5 \).
+
+    \begin{enumerate} 
+    \item Determine all integers \( n \) such that:
+\[
+n + S(n) + S(S(n)) = 2000.
+\]
+    \item $$n + S(n) + S(S(n)) = 1950$$
+    \end{enumerate}
+    \textit{Solution: }
+    \begin{lstlisting}[language=Python]
+    def digit_sum(n):
+        return sum(int(digit) for digit in str(n))
+
+    def find_n_values(target):
+        valid_ns = []
+        for n in range(target + 1):  
+            s_n = digit_sum(n)
+            s_s_n = digit_sum(s_n)
+            if n + s_n + s_s_n == target:
+                valid_ns.append(n)
+        return valid_ns
+    \end{lstlisting}
+    Alternatively, we can write this number as $\overline{1abc}$. Suppose this number was less than 1000. That gives a contradiction, the sum of the digits will never be more than $9\times4$, and the sum of those digits will never be more than $9\times2$, and they both won't peak at the same time either. So, $S(n) + S(S(n))$ is at most $9\times6$. A tighter bound can even be established, because 1999 has the highest sum of the digits because the rest of the function is non-negative $\implies 9999$ is impossible.
+
+    Carrying on with $\overline{1abc}$, the decimal representation of this is given by $1000+100a+10b+c$. Given that input, the function $S$ will evaluate to $1+a+b+c$. We now need to evaluate the function $S$ on that input, which is harder. $1+a+b+c$ will be at most $28$, so we will let it be $10x+y$. This function will evaluate to $x+y$ or $1+a+b+c-9x$.
+
+    Our expression is thus $$1000+100a+10b+c+1+a+b+c+10x+y$$
+    $$1000+100a+10b+c+1+a+b+c+1+a+b+c-9x$$
+    $$1002+102a+12b+3c-9x = t$$
+    
+    $t$ is the target number, which we will first take to be 2000.
+    
+    $$998 = 102a+12b+3c-9x$$
+
+    Let us take this $\mod{9}$ to get rid of $x$ as we cannot easily express it.
+
+    $$\implies 8 \equiv 3a+3b+3c \pmod{9}$$
+    $$8 \equiv 3(a+b+c) \pmod{9}$$
+    In $\mod{3}$,
+    $$\implies 3(a + b + c) \equiv 2 \mod 3  $$
+    $$ 0 \equiv 2 \mod3$$
+    Thus, we have a contradiction and there are no solutions for $t=2000$.
+    \\
+    
+    For $t=1950$
+    $$1002+102a+12b+3c-9x = 1950$$
+    Under $\mod{9}$,
+    $$\implies 3+3a+3b+3c \equiv 6 \pmod{9}$$
+    $$3(1+a+b+c) \equiv 6 \pmod{9}$$
+    "Dividing" out the gcd of a factor and the modulus. We are scaling down the congruence to a simpler form.
+    $$3(1+a+b+c) \equiv 6 \pmod{9} \iff 1+a+b+c \equiv 2 \pmod{3}$$
+    $$a+b+c \equiv 1 \mod{3}$$
+    Thus, if this function equals 1950, we see the sum of the digits must be 2, or the sum of the unknown digits must be 1, under $\mod{3}$
+    By running the Python program, we see that the solutions are $n = 1925, 1928, 1931$. All of these have remainder 2 upon division by $3$. This is of no surprise because we showed that all solutions must be congruent to 2. 
+    
+    To make something clear, the converse, being congruent to $2$ in $\mod{3}$ implying a solution is not true because we did not only do invertible operations. Notably, we only considered remainders, and there is no way to get to the original number from a remainder. Thus, these were indicated with "implies" as opposed to "if and only if" arrows.
+
+    All three of these solutions have different remainders when dividing by $9$, so there is not much we can do to simplify the solution set using modular arithmetic because we originally chose $\mod9$ to cancel the $-9x$.
+
+    The one other thing we could try is expressing the tens digit $x$ as $x = \left\lfloor \frac{1 + a + b + c}{10} \right\rfloor$
+    Then we could simplify and get:
+    $$ 1002+102a+12b+3c-9\left\lfloor \frac{1 + a + b + c}{10} \right\rfloor = 1950$$
+    $$ 102a+12b+3c-9\left\lfloor \frac{1 + a + b + c}{10} \right\rfloor = 948$$
+    Note that $k \left\lfloor x \right\rfloor \neq \left\lfloor kx \right\rfloor$. For proof of this, see this example.
+    $$3 \left\lfloor 2.7 \right\rfloor = 3 \times 2 = 6$$
+    $$\left\lfloor 3 \times 2.7 \right\rfloor = \left\lfloor 8.1 \right\rfloor = 8$$
+    Continuing on by dividing by 3.
+    $$ 34a+4b+1c-3\left\lfloor \frac{1 + a + b + c}{10} \right\rfloor = 316$$
+    The floor could be $1$ or $2$ because a simple analysis shows the numerator cannot exceed $28$. It cannot be $0$ and can be proven by contradiction.
+    $0 \leq 1 + a + b + c < 10$ and $0 \leq a + b + c < 9$
+    The function would be maximized if we maximized $a$ at the expense of $b$ and $c$ because $a$ has the highest coefficient. Thus, take $a=8$, $b=c=0$.
+    $$34(8) = 240+32 = 272 < 316$$
+    Thus, no solution exists where $x$ is 0.
+    From here, we could do casework for two possible values of $x$. However, we can identify min and max values for the sum function to only consider the range 1905 to 1945.  Then, we consider only those with remainder $2$ when dividing by $3$. This gives us valid solutions of $n = 1925, 1928, 1931$. 
+    
+    Expressing $x$ as a floor did not help to simplify to meaningfully simply the problem because we could we could loosely bound the linear equations to a reasonable enough sample size to compute, but, the technique was still worth a try.
+
+    \item \textbf{Problem:}
+    Given a function \( S(n) \) defined as the sum of the first \( n \) natural numbers:
+    \[
+    S(n) = \frac{n(n + 1)}{2}
+    \]
+    
+    Explore finding integers \( n \) such that:
+    \[
+    n + S(n) + S(S(n)) = t
+    \]
+    for some $t$.
+
+    \textit{Solution: \( S(S(n)) \) is calculated as:}
+    
+    \[
+    S\left(\frac{n(n + 1)}{2}\right) = \frac{\left(\frac{n(n + 1)}{2}\right)\left(\frac{n(n + 1)}{2} + 1\right)}{2}
+    \]
+    
+    \textit{Thus, the equation becomes:
+    \[
+    n + \frac{n(n + 1)}{2} + \frac{\left(\frac{n(n + 1)}{2}\right)\left(\frac{n(n + 1)}{2} + 1\right)}{2} = t
+    \]
+    }
+
+    \textit{Expanding some of the above}:
+    \[
+    \frac{\left(\frac{n^2 + n}{2}\right)\left(\frac{n^2 + n}{2} + 1\right)}{2} = \frac{(n^2 + n)(n^2 + n + 2)}{8}
+    \]
+    
+    \textit{Combine like terms}:
+    \[
+    = \frac{n^4 + 2n^3 + 3n^2 + 2n}{8}
+    \]
+    
+    \textit{Substituting back into the original equation}:
+    \[
+    n + \frac{n^2 + n}{2} + \frac{n^4 + 2n^3 + 3n^2 + 2n}{8} = t
+    \]
+    
+    \textit{Combine all terms over a common denominator of 8}:
+    \[
+    \frac{8n}{8} + \frac{4n^2 + 4n}{8} + \frac{n^4 + 2n^3 + 3n^2 + 2n}{8} = t
+    \]
+    
+    \textit{Simplify}:
+    \[
+    \frac{n^4 + 2n^3 + 7n^2 + 14n}{8} = t
+    \]
+    
+    \textit{Finally, multiplying through by 8 to clear the denominator gives us}:
+    \[
+    n^4 + 2n^3 + 7n^2 + 14n = 8t
+    \]
+    $t = 3$ and $t = 11$ have nice corresponding values of $n$ ($n=1 \text{ and } n=2$. It is a natural question to ask whether this function is one-to-one or injective. In the domain of non-negative numbers, the answer to this is yes. This is because the first derivative, $f'(n) = 4n^3 + 6n^2 + 14n + 14$, is always positive $\implies$ the function is always increasing on the interval $[0, \infty)$. 
+
+    \end{enumerate}
+    
+\end{document}
+
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    \end{enumerate}
+
+    
+    
+    
+    
+
+    
+
+
+\section{Problem}
+
+\end{document}
