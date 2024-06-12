@@ -1,0 +1,72 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+
+\geometry{left=0.5in, right=0.5in, top=0.5in, bottom=0.3in}
+
+\begin{document}
+
+\section*{Proof of the Cauchy-Schwarz Inequality}
+
+Prove the Cauchy-Schwarz inequality:
+
+\[
+|a\cdot b| \leq \|a\|\|b\|
+\]
+
+with equality if and only if $a$ and $b$ are scalar multiples of each other.
+
+\textbf{Lemma 1.} For any $z$ in $\mathbb{R}^n$, $\|z\|^2 = z\cdot z$.
+
+\textbf{Lemma 2.} For $t$ in $\mathbb{R}$ and $z$ in $\mathbb{R}^n$, $tz\cdot tz = t^2(z\cdot z)$.
+
+\textbf{Lemma 3.} $\|z\|^2 = 0$ if and only if $z = 0$.
+
+\textbf{Proof.}
+
+This is reminiscent of a quadratic equation of the form $xt^2 + yt + z$ where $x = \|b\|^2$, $y = 2(a\cdot b)$, and $z = \|a\|^2$, with a general equation of the discriminant $b^2 - 4ac$. The discriminant of this quadratic equation is $(2a\cdot b)^2 - 4\|a\|^2\|b\|^2$.
+
+$\|a+tb\|^2$ (the non-expanded form of the quadratic equation) is $0$ if and only if $a+tb = 0$ (they have the same roots) by Lemma 3. Thus, we want to check to find solutions to $a+tb = 0$. As this is degree 1, it has at most 1 root. Alternatively, it could be reasoned that $\|a+tb\|^2$ is nonnegative, so thus cannot make more than 1 root. Because of this, the discriminant cannot be positive, as that would indicate it has 2 roots. If there was 1 solution to $a+tb=0$, that would mean there exists some $t$ s.t. $a=-tb$. This is possible if and only if $a$ and $b$ are scalar multiples of each other (linearly dependent).
+
+The $0$ solutions case is valid for linearly independent vectors. Thus, we can say the discriminant is nonpositive and $0$ iff $a$ and $b$ are scalar multiples of each other. Now, we can make the discriminant expression into an inequality, as we know it is nonnegative.
+
+\[
+(2a\cdot b)^2 - 4\|a\|^2\|b\|^2 \leq 0
+\]
+
+Continuing from this equation with Lemma 1 and 2:
+\[(2a \cdot b)^2 - 4\lVert a \rVert^2 \lVert b \rVert^2 \Longleftrightarrow (2a \cdot b)^2 \leq 4\lVert a \rVert^2 \lVert b \rVert^2 \]
+\[(2a \cdot b)^2 = (2a \cdot b)(2a \cdot b) = 4(a \cdot b)^2 \]
+So, \( 4(a \cdot b)^2 \leq 4\lVert a \rVert^2 \lVert b \rVert^2 \Longleftrightarrow (a \cdot b)^2 \leq \lVert a \rVert^2 \lVert b \rVert^2 \Longleftrightarrow |a \cdot b| \leq \lVert a \rVert \lVert b \rVert \)
+Thus, \( |a \cdot b| \leq \lVert a \rVert \lVert b \rVert \) and \( |a \cdot b| = \lVert a \rVert \lVert b \rVert \) if and only if \( a = cb \) for some \( c \in \mathbb{R} \).
+
+\section*{Proof of Lemmas}
+\begin{quote}
+
+\textbf{Lemma 1.} For any \( z \in \mathbb{R}^n \), \( \lVert z \rVert^2 = z \cdot z \).
+
+\textbf{Proof.} \( \lVert z \rVert^2 = \sqrt{z_1^2 + z_2^2 + \ldots + z_n^2}^2 = z_1^2 + z_2^2 + \ldots + z_n^2 \).
+
+\( z \cdot z = z_1 \cdot z_1 + z_2 \cdot z_2 + \ldots + z_n \cdot z_n = z_1^2 + z_2^2 + \ldots + z_n^2 \)
+
+Thus, \( \lVert z \rVert^2 = z \cdot z \).
+\end{quote}
+
+\begin{quote}
+\textbf{Lemma 2.} For \( t \in \mathbb{R} \) and \( z \in \mathbb{R}^n \), \( tz \cdot tz = t^2(z \cdot z) \).
+
+\textbf{Proof.} Using a property of the inner product, that \( c\langle u, v \rangle = \langle cu, v \rangle = \langle u, cv \rangle \), two factors of \( t \) can be pulled out. 
+\[ \langle tz, tz \rangle = t\langle z, tz \rangle = t^2 \langle z, z \rangle \]
+Alternatively, 
+\[ tz \cdot tz = tz_1 \cdot tz_1 + tz_2 \cdot tz_2 + \ldots + tz_n \cdot tz_n = t^2 z_1^2 + t^2 z_2^2 + \ldots + t^2 z_n^2 = t^2(z \cdot z) \]
+Given \( a, b \in \mathbb{R}^n \), and using Lemma 1 and Lemma 2.
+\[ \lVert a + tb \rVert^2 = (a + tb) \cdot (a + tb) = a \cdot a + 2(a \cdot tb) + tb \cdot tb = a \cdot a + 2t(a \cdot b) + t^2(b \cdot b) = \lVert a \rVert^2 + 2(a \cdot b) + t^2 \lVert b \rVert^2 \]
+\end{quote}
+
+\begin{quote}
+\textbf{Lemma 3.} \( \lVert z \rVert^2 = 0 \) if and only if \( z = 0 \).
+
+\textbf{Proof.} \( \lVert z \rVert^2 = \sqrt{z_1^2 + \ldots + z_n^2}^2 = z_1^2 + \ldots + z_n^2 \). If \( z \) was the \( 0 \) vector, then each \( z_i \) would be \( 0 \) and the norm would be \( 0 \). If \( \lVert z \rVert^2 = 0 \), knowing that \( z_i^2 \) are nonnegative implies each \( z_i \) is nonnegative, so each \( z_i \) must be \( 0 \).
+\end{quote}
+
+\end{document}
