@@ -1,0 +1,788 @@
+\documentclass[12pt]{article}
+
+% Packages for formatting
+\usepackage[utf8]{inputenc} % UTF-8 encoding
+\usepackage[T1]{fontenc}    % Better font encoding
+\usepackage{lmodern}        % Improved font rendering
+\usepackage{geometry}       % Adjust margins
+\geometry{
+    a4paper,
+    left=1in,
+    right=1in,
+    top=1in,
+    bottom=1in
+}
+\usepackage{setspace}       % For line spacing
+\onehalfspacing             % 1.5 line spacing for better readability
+\usepackage{amsmath, amssymb, amsthm} % Math formatting
+\usepackage{enumitem}       % Better lists
+\usepackage{xcolor}         % Colored text for highlights
+\usepackage{fancyhdr}       % Header and footer customization
+\usepackage{titlesec}       % Section title formatting
+\usepackage{lastpage}       % Reference last page for footer
+\usepackage{float}
+\usepackage{caption}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Linear Algebra Final Exam}   % Left header
+\fancyhead[R]{NetID: }    % Right header
+\fancyfoot[C]{Page \thepage\ of \pageref{LastPage}} % Footer with page number
+
+% Section formatting
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\thesubsection.}{0.5em}{}
+
+% Adjust itemize/enumerate spacing
+\setlist[itemize]{itemsep=0.5em, topsep=0.5em}
+\setlist[enumerate]{itemsep=0.5em, topsep=0.5em}
+
+% Custom commands for clarity
+\newcommand{\qspace}{\vspace{1em}} % Custom space between questions
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath, amssymb, amsfonts}
+
+% Define a new command for solutions
+\newenvironment{solution}{\noindent\textbf{Solution:} }{\qspace}
+
+\title{
+    \vspace{4cm}
+    \textbf{\LARGE Duke University} \\
+    \vspace{0.5cm}
+    \textbf{\Large MATH 221: Linear Algebra and Applications} \\
+    \vspace{0.5cm}
+    \textbf{Fall 2023} \\
+    \vspace{0.5cm}
+    \textbf{\Large Final Exam} \\
+    \vspace{0.5cm}
+}
+  
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Instructions:} You have \textbf{3 hours} to complete this exam, which consists of \textbf{24 questions} totaling \textbf{200 points}. Accuracy is encouraged over attempting every question. Show all your work for full credit. 
+
+\textit{Time Estimations}
+
+\textit{1 Hour in: At Question 10}
+
+\textit{2 Hours in: At Question 16}
+
+\newpage
+
+\begin{enumerate}
+
+    \item (12 points total)
+    \begin{enumerate}
+    \item (3 points) Give an example of a transformation (or map) \( T: \mathbb{R}^n \to \mathbb{R}^m \) (for some \( n, m \)) that is not a linear transformation. Explain.
+    
+    \begin{solution}
+    Consider the map \( T: \mathbb{R}^2 \to \mathbb{R}^2 \) defined by \( T(\mathbf{x}) = \mathbf{x} + \mathbf{v} \), where \( \mathbf{v} \) is a fixed non-zero vector in \( \mathbb{R}^2 \). 
+
+    This map is not linear because it does not satisfy the condition \( T(\mathbf{0}) = \mathbf{0} \). Specifically, \( T(\mathbf{0}) = \mathbf{v} \neq \mathbf{0} \). Additionally, it fails to preserve scalar multiplication, as \( T(c\mathbf{x}) = c\mathbf{x} + \mathbf{v} \neq cT(\mathbf{x}) = c\mathbf{x} + c\mathbf{v} \) unless \( \mathbf{v} = \mathbf{0} \).
+    \end{solution}
+    
+    \item (3 points) Give an example of a linear transformation \( T: \mathbb{R}^4 \to \mathbb{R}^5 \) that is not injective or explain why one cannot exist.
+    
+    \begin{solution}
+    Consider the linear transformation \( T: \mathbb{R}^4 \to \mathbb{R}^5 \) defined by
+\[
+T(\mathbf{x}) = (x_1, 0, 0, 0, 0)
+\]
+where \( \mathbf{x} = (x_1, x_2, x_3, x_4) \).
+
+This transformation is not injective because different vectors in \( \mathbb{R}^4 \) can map to the same vector in \( \mathbb{R}^5 \). For example, both \( \mathbf{x} = (1, 0, 0, 0) \) and \( \mathbf{y} = (1, 2, 3, 4) \) map to \( T(\mathbf{x}) = T(\mathbf{y}) = (1, 0, 0, 0, 0) \). 
+
+    \end{solution}
+    
+    \item (3 points) Give an example of a linear transformation \( T: \mathbb{R}^4 \to \mathbb{R}^5 \) that is surjective or explain why one cannot exist.
+    
+    \begin{solution}
+    A linear transformation \( T: \mathbb{R}^4 \to \mathbb{R}^5 \) cannot be surjective. The maximum rank of \( T \) is 4, which is less than the dimension of the codomain \( \mathbb{R}^5 \). Therefore, the image of \( T \) is a subspace of \( \mathbb{R}^5 \) with dimension at most 4, and thus \( T \) cannot cover the entire \( \mathbb{R}^5 \).
+    \end{solution}
+    
+    \item (3 points) Give an example of a non-identity linear transformation \( T: \mathbb{R}^n \to \mathbb{R}^n \) for some \( n \) with the property \( T(T(v)) = T(v) \) for all \( v \in \mathbb{R}^n \).
+    
+    \begin{solution}
+    Consider the projection map \( T: \mathbb{R}^2 \to \mathbb{R}^2 \) defined by projecting any vector onto the \( x \)-axis. Specifically, \( T(x, y) = (x, 0) \).
+
+    This is a linear transformation since it satisfies additivity and homogeneity. It is not the identity transformation because, for example, \( T(0,1) = (0,0) \neq (0,1) \).
+
+    Moreover, applying \( T \) twice yields:
+    \[
+    T(T(x, y)) = T(x, 0) = (x, 0) = T(x, y)
+    \]
+    Hence, \( T(T(v)) = T(v) \) for all \( v \in \mathbb{R}^2 \).
+    \end{solution}
+    
+    \end{enumerate}
+    
+    \item (18 points total) For the following statements, provide a proof if true or a counterexample or counterproof if false.
+    \begin{enumerate}
+        \item (3 points) True/False: The determinant of a triangular matrix is the product of its diagonal entries.
+
+        \begin{solution}
+        \textbf{True.} For any triangular matrix (whether upper or lower triangular), the determinant is the product of the entries on its main diagonal. This is because when expanding the determinant, only the diagonal entries contribute to the product, and all other terms involve products that include zeros from the off-diagonal entries.
+        \end{solution}
+
+        \item (3 points) True/False: The set of all vectors in \( \mathbb{R}^3 \) with integer coordinates forms a subspace of \( \mathbb{R}^3 \).
+
+        \begin{solution}
+        \textbf{False.} A subspace must satisfy closure under scalar multiplication. Consider the vector \( \mathbf{v} = (1,1,1) \) with integer coordinates. For a scalar \( c = \frac{1}{2} \), \( c\mathbf{v} = (\frac{1}{2}, \frac{1}{2}, \frac{1}{2}) \) does not have integer coordinates. Therefore, the set is not closed under scalar multiplication and thus is not a subspace.
+        \end{solution}
+        
+        \item (3 points) True/False: The intersection of two subspaces of a vector space is always a subspace.
+        
+        \begin{solution}
+        \textbf{True.} The intersection of two subspaces \( U \) and \( V \) of a vector space \( W \) consists of all vectors that are in both \( U \) and \( V \). The intersection contains the zero vector, and is closed under addition and scalar multiplication because both \( U \) and \( V \) are individually closed under these operations. Therefore, \( U \cap V \) is a subspace of \( W \).
+        \end{solution}
+        
+        \item (3 points) True/False: If \( U \) and \( V \) are subspaces of a vector space \( W \), then \( U + V \) is the smallest subspace containing both \( U \) and \( V \).
+    
+        \begin{solution}
+        \textbf{True.} The sum \( U + V \) is defined as \( \{ u + v \mid u \in U, v \in V \} \). It is the smallest subspace that contains both \( U \) and \( V \) because any subspace containing both \( U \) and \( V \) must also contain all linear combinations of their elements, which is exactly \( U + V \).
+        \end{solution}
+
+        \item (3 points) Any square matrix \( A \) can be decomposed as \( A = LL^T \), where \( L \) is lower triangular.
+
+        \begin{solution}
+        \textbf{False.} Not every square matrix can be decomposed as \( A = LL^T \) where \( L \) is a lower triangular matrix. This decomposition is known as the Cholesky decomposition, which requires \( A \) to be symmetric and positive definite. If \( A \) is not symmetric or not positive definite, such a decomposition does not exist.
+        \end{solution}
+    
+        \item (3 points) True/False: A square matrix must have at least one real eigenvalue.
+
+        \begin{solution}
+        \textbf{False.} Not all square matrices have real eigenvalues. For example, the matrix \( A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} \) has eigenvalues \( i \) and \( -i \), which are complex and not real.
+        \end{solution}
+    
+    \end{enumerate}
+
+    \item 
+    \begin{enumerate}
+        \item (3 points) Explain what happens if you feed the Gram-Schmidt algorithm a set of vectors, some of which are linearly dependent.
+    
+        \begin{solution}
+        If the Gram-Schmidt algorithm is applied to a set of vectors that are linearly dependent, the algorithm will produce a set of orthogonal vectors where some of the vectors are the zero vector. Specifically, when a vector in the set can be expressed as a linear combination of the previous vectors, its projection onto the subspace spanned by the previous vectors will equal the vector itself, resulting in a zero vector after subtraction. This indicates linear dependence, and such zero vectors are typically discarded to obtain a basis for the subspace.
+        \end{solution}
+    
+        \item (3 points) Justify the correctness of the Gram-Schmidt algorithm at a given iteration.
+    
+        \begin{solution}
+        At each iteration of the Gram-Schmidt algorithm, a new vector is orthogonalized against the previously obtained orthogonal vectors. This is done by subtracting from the current vector its projections onto each of the existing orthogonal vectors, ensuring that the resulting vector is orthogonal to all of them. By induction, assuming that the previous vectors are orthogonal, the new vector maintains orthogonality. Additionally, if the original set was linearly independent, the new vector will be non-zero, ensuring that the set of orthogonal vectors spans the same subspace as the original set. Therefore, the algorithm correctly produces an orthogonal (or orthonormal) basis for the subspace spanned by the original vectors.
+        \end{solution}
+    \end{enumerate}
+    
+    \item (9 points)
+    \begin{enumerate}
+        \item (3 points) \( A \) and \( B \) are \( 3 \times 3 \) matrices with either determinants 5 and 10 respectively, or 10 and 5 respectively. What are the possible values for \( \det(2AB) \)?
+    
+        \begin{solution}
+        Given \( \det(A) = 5 \) and \( \det(B) = 10 \), or \( \det(A) = 10 \) and \( \det(B) = 5 \).
+
+        The determinant of a scalar multiple of a matrix is \( \det(kA) = k^n \det(A) \), where \( n \) is the size of the square matrix. Here, \( n = 3 \).
+
+        Thus, \( \det(2AB) = 2^3 \det(A) \det(B) = 8 \times \det(A) \times \det(B) \).
+
+        For both cases:
+        \[
+        \det(2AB) = 8 \times 5 \times 10 = 400
+        \]
+        and
+        \[
+        \det(2AB) = 8 \times 10 \times 5 = 400
+        \]
+        Hence, the only possible value is \( 400 \).
+        \end{solution}
+    
+    \item (3 points) Provide two classes of matrices that have their column space equal to their row space. These classes should have at least a few elements (e.g., idempotent matrices, not just the identity matrix).
+    
+        \begin{solution}
+        Two classes of matrices where the column space equals the row space are:
+
+        \textbf{Symmetric Matrices}: For any symmetric matrix \( A \) (i.e., \( A = A^T \)), the column space and the row space are identical because the row space is the column space of \( A^T \), which is the same as \( A \).
+
+        \textbf{Orthogonal Projection Matrices}: These are idempotent and symmetric matrices used to project vectors onto a subspace. Since they are symmetric, their column space equals their row space.
+
+        Both classes include more than just the identity matrix. For example, any diagonal matrix with real entries is symmetric, and any projection onto a subspace is an orthogonal projection matrix.
+        \end{solution}
+    
+    \item (3 points) What is the determinant of an orthogonal matrix? Why does this make sense geometrically?
+    
+        \begin{solution}
+        The determinant of an orthogonal matrix is either \( +1 \) or \( -1 \).
+
+        Geometrically, this makes sense because orthogonal matrices represent rotations and reflections, which preserve volume and orientation (up to a sign). A determinant of \( +1 \) corresponds to a rotation (preserving orientation), while a determinant of \( -1 \) corresponds to a reflection (reversing orientation). Both operations preserve the magnitude of volume in the space.
+        \end{solution}
+    \end{enumerate}
+    
+    \item (5 points) Let \( A \) be a symmetric \( n \times n \) matrix. This implies \( A = Q \Lambda Q^T \), with \( Q \) being orthogonal. Using this, we can write:
+\[
+A = Q \Lambda^{1/2} \Lambda^{1/2} Q^T = (Q \Lambda^{1/2})(Q \Lambda^{1/2})^T := BB^T.
+\]
+
+Is this factorization \( A = BB^T \) unique? If not, describe how other choices of \( B \) can satisfy \( A = BB^T \).
+
+\begin{solution}
+The factorization \( A = BB^T \) is not unique. Given one such factorization \( B = Q \Lambda^{1/2} \), any orthogonal matrix \( U \) can be used to generate another factorization:
+\[
+B' = BU = Q \Lambda^{1/2} U
+\]
+Since \( U \) is orthogonal, \( B'B'^T = (BU)(BU)^T = BUU^T B^T = B B^T = A \). Therefore, there are infinitely many matrices \( B \) that satisfy \( A = BB^T \), differing by an orthogonal transformation.
+\end{solution}
+    
+    \item (16 points total) Prove or give a counterexample.
+    \begin{enumerate}
+        \item (4 points) If \( B \) is similar to \( A \), then \( B^T \) is similar to \( A^T \).
+
+        \begin{solution}
+        \textbf{True.} If \( B \) is similar to \( A \), there exists an invertible matrix \( P \) such that \( B = P^{-1}AP \). Taking transposes of both sides, we get:
+        \[
+        B^T = (P^{-1}AP)^T = P^T A^T (P^{-1})^T = P^T A^T (P^T)^{-1}
+        \]
+        This shows that \( B^T \) is similar to \( A^T \) via the invertible matrix \( P^T \).
+        \end{solution}
+        
+        \item (4 points) If \( B \) is similar to \( A \), and \( A \) is symmetric, then \( B \) is symmetric.
+
+        \begin{solution}
+        \textbf{False.} A matrix similar to a diagonal matrix is not necessarily symmetric because not all diagonalizable matrices are symmetric. 
+        \end{solution}
+        
+        \item (4 points) If \( B \) is similar to \( A \), then \( \det(B) = \det(A) \).
+
+        \begin{solution}
+        \textbf{True.} Similar matrices have the same determinant. If \( B = P^{-1}AP \) for some invertible matrix \( P \), then:
+        \[
+        \det(B) = \det(P^{-1}AP) = \det(P^{-1}) \det(A) \det(P) = \det(P^{-1}P) \det(A) = \det(A)
+        \]
+        Hence, \( \det(B) = \det(A) \).
+        \end{solution}
+        
+        \item (4 points) Determine the determinant of this matrix by applying a similarity transform. State the similarity transformation used and justify your answer.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{image.png}
+        \captionsetup{labelformat=empty}
+        \caption{}
+    \end{figure}
+    
+        \begin{solution}
+       \textbf{8}. Let \( P \) be the orthogonal permutation matrix that makes the given matrix similar to a diagonal matrix. The determinant is the product of the diagonal entries, which is \( 8 \). By the earlier part, the original matrix also has determinant \( 8 \).
+        \end{solution}
+    \end{enumerate}
+    
+    \item (4 points) Prove that $\text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))$ where $A \in \mathbb{R}^{m \times n}$ and $B \in \mathbb{R}^{n \times p}$.
+    
+    \begin{solution}
+    To prove that \( \text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B)) \):
+
+    - Rank of \( AB \) is at most Rank of \( A \):
+      The columns of \( AB \) are linear combinations of the columns of \( A \). Therefore, the column space of \( AB \) is a subspace of the column space of \( A \), implying \( \text{rank}(AB) \leq \text{rank}(A) \).
+
+    - Rank of \( AB \) is at most Rank of \( B \):
+      Similarly, the rows of \( AB \) are linear combinations of the rows of \( B \). Hence, the row space of \( AB \) is a subspace of the row space of \( B \), implying \( \text{rank}(AB) \leq \text{rank}(B) \).
+
+    Combining both, we get:
+    \[
+    \text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))
+    \]
+    \end{solution}
+    
+    \item (8 points) 
+    Suppose that \( A \) and \( B \) are \( n \times n \) matrices and that the product \( AB \) is nonsingular. Prove that \( B \) is nonsingular and \( A \) is nonsingular in two different ways.
+    \begin{enumerate}
+        \item (4 points) Prove this using inverses.
+        
+        \begin{solution}
+        Since \( AB \) is nonsingular, there exists an inverse \( (AB)^{-1} \).
+
+        From the property of inverses:
+        \[
+        (AB)^{-1} = B^{-1} A^{-1}
+        \]
+        This implies that both \( A \) and \( B \) must have inverses. Therefore, both \( A \) and \( B \) are nonsingular.
+        \end{solution}
+        
+        \item (4 points) Prove this using the determinant.
+        
+        \begin{solution}
+        The determinant of a product of matrices equals the product of their determinants:
+        \[
+        \det(AB) = \det(A) \det(B)
+        \]
+        Given that \( AB \) is nonsingular, \( \det(AB) \neq 0 \). Therefore:
+        \[
+        \det(A) \det(B) \neq 0
+        \]
+        This implies that neither \( \det(A) \) nor \( \det(B) \) is zero, meaning both \( A \) and \( B \) are nonsingular.
+        \end{solution}
+    \end{enumerate}
+    
+    \item \begin{enumerate}
+        \item (4 points) Let $\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\}$ be a linearly independent set in a vector space $V$. Prove that for any $\mathbf{w} \in \text{span}(\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_n\})$, the scalars $c_1, c_2, \dots, c_n$ such that $\mathbf{w} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_n \mathbf{v}_n$ are unique.
+        
+        \begin{solution}
+        Suppose there exist two sets of scalars \( \{c_1, \ldots, c_n\} \) and \( \{c'_1, \ldots, c'_n\} \) such that:
+        \[
+        \mathbf{w} = \sum_{i=1}^n c_i \mathbf{v}_i = \sum_{i=1}^n c'_i \mathbf{v}_i
+        \]
+        Subtracting the equations:
+        \[
+        \sum_{i=1}^n (c_i - c'_i) \mathbf{v}_i = \mathbf{0}
+        \]
+        Since \( \{\mathbf{v}_1, \ldots, \mathbf{v}_n\} \) is linearly independent, it follows that \( c_i - c'_i = 0 \) for all \( i \). Therefore, \( c_i = c'_i \) for all \( i \), proving the uniqueness of the scalars.
+        \end{solution}
+        
+        \item (4 points) Suppose the previous set of vectors was orthonormal. Show for any inner product, $
+c_i = \langle \mathbf{w}, \mathbf{v}_i \rangle$.
+    
+        \begin{solution}
+        Since \( \{\mathbf{v}_1, \ldots, \mathbf{v}_n\} \) is an orthonormal set, we have \( \langle \mathbf{v}_i, \mathbf{v}_j \rangle = \delta_{ij} \).
+
+        Given \( \mathbf{w} = \sum_{k=1}^n c_k \mathbf{v}_k \), take the inner product with \( \mathbf{v}_i \):
+        \[
+        \langle \mathbf{w}, \mathbf{v}_i \rangle = \left\langle \sum_{k=1}^n c_k \mathbf{v}_k, \mathbf{v}_i \right\rangle = \sum_{k=1}^n c_k \langle \mathbf{v}_k, \mathbf{v}_i \rangle = c_i
+        \]
+        Thus, \( c_i = \langle \mathbf{w}, \mathbf{v}_i \rangle \).
+        \end{solution}
+        
+        \item (4 points) Suppose the orthonormal basis was $\{ v_1, v_2, v_3\}$. Determine the possible values for $c_1, c_2, c_3$ under the following assumptions: 
+        \begin{itemize}
+            \item $\langle w, v_2 \rangle = 3$,
+            \item $w \perp v_3$,
+            \item $\lVert w \rVert = 5$.
+        \end{itemize}
+        
+        \begin{solution}
+        Given:
+        \[
+        \mathbf{w} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + c_3 \mathbf{v}_3
+        \]
+        From the assumptions:
+        \[
+        c_2 = \langle \mathbf{w}, \mathbf{v}_2 \rangle = 3
+        \]
+        \( w \perp v_3 \) implies:
+        \[
+        \langle \mathbf{w}, \mathbf{v}_3 \rangle = c_3 = 0
+        \]
+        The norm of \( w \) is:
+        \[
+        \lVert w \rVert^2 = c_1^2 + c_2^2 + c_3^2 = c_1^2 + 9 + 0 = 25 \implies c_1^2 = 16 \implies c_1 = \pm 4
+        \]
+        Therefore, the possible values are:
+        \[
+        c_1 = 4 \text{ or } -4, \quad c_2 = 3, \quad c_3 = 0
+        \]
+        \end{solution}
+    \end{enumerate}
+    
+    \item (5 points) Alice and Bob play a game taking turns putting elements in a $2024 \times 2024$ matrix. Alice goes first. At each turn, a player puts a real number in an open spot. The game ends when all the entries are filled. Alice wins precisely if the determinant of the finished matrix is nonzero. Who has a winning strategy and why?
+        
+         \begin{solution}
+    \textbf{Bob has a winning strategy.}
+    
+    \textbf{Explanation:}
+    
+    In an even-sized matrix (\(2024 \times 2024\)), Bob can employ a mirroring strategy to ensure that the final matrix is singular (i.e., has a determinant of zero). Here's how Bob can execute this strategy:
+    
+ Whenever Alice places a real number in a specific position \((i, j)\), Bob places the \textit{same} number just above or below it. This ensures that for every row Alice is working on, Bob is creating another identical row. This ensures that at the end of Bob's turn, for each row, there is another row that is completed the same way. As this continues, rows will be fully completed and thus another row will be fully completed the same way, establishing a linear dependence and thus making a singular matrix.
+        
+        \end{solution}
+        
+    
+    \item (9 points total) In this problem, we are going to view the space \( M_{n \times n} \) of \( n \times n \) real matrices as a vector space (of dimension \( n^2 \)).
+    \begin{enumerate}
+        \item (3 points) Show that the function \( T: M_{n \times n} \to M_{n \times n} \) given by \( T(X) = X^T \) is a linear transformation.
+        
+        \begin{solution}
+        To show that \( T \) is linear, we need to verify two properties:
+
+        1. \textbf{Additivity:}
+        \[
+        T(X + Y) = (X + Y)^T = X^T + Y^T = T(X) + T(Y)
+        \]
+
+        2. \textbf{Homogeneity:}
+        \[
+        T(cX) = (cX)^T = cX^T = cT(X)
+        \]
+
+        Since both properties hold, \( T \) is a linear transformation.
+        \end{solution}
+        
+        \item (6 points) Find the eigenvalues and corresponding eigenspaces of \( T \). Give the dimensions of the eigenspaces. (Hint: show that \( T^2 \) is the identity on \( M_{n \times n} \). What does this say about the possible eigenvalues of \( T \)?)
+        
+        \begin{solution}
+        First, observe that \( T^2(X) = (X^T)^T = X \), so \( T^2 = I \).
+
+        The minimal polynomial of \( T \) divides \( x^2 - 1 \), so the eigenvalues of \( T \) are \( \lambda = 1 \) and \( \lambda = -1 \).
+
+        - \textbf{Eigenvalue \( \lambda = 1 \):} 
+          These are the symmetric matrices since \( T(X) = X \) implies \( X^T = X \).
+
+        - \textbf{Eigenvalue \( \lambda = -1 \):} 
+          These are the skew-symmetric matrices since \( T(X) = -X \) implies \( X^T = -X \).
+
+        \textbf{Dimensions:}
+        - The space of symmetric \( n \times n \) matrices has dimension \( \frac{n(n+1)}{2} \).
+        - The space of skew-symmetric \( n \times n \) matrices has dimension \( \frac{n(n-1)}{2} \).
+
+        Thus, the eigenspaces corresponding to \( \lambda = 1 \) and \( \lambda = -1 \) have dimensions \( \frac{n(n+1)}{2} \) and \( \frac{n(n-1)}{2} \), respectively.
+        \end{solution}
+    \end{enumerate}
+    
+    \item (6 points) Let \( A \) be an \( n \times n \) matrix. Consider the operator \( T(X) = AX + XA^\top \) on the space \( M_{n \times n} \) of \( n \times n \) matrices. You may use without proof that it is a linear transformation.
+    
+    Find the eigenvalues and eigenvectors of \( T \) when \( A \) is a diagonal matrix with entries \( \lambda_1, \dots, \lambda_n \).
+    
+    \begin{solution}
+    Let \( A \) be diagonal with entries \( \lambda_1, \dots, \lambda_n \). Consider the standard basis matrices \( E_{ij} \) where \( (E_{ij})_{kl} = \delta_{ik}\delta_{jl} \).
+
+    Apply \( T \) to \( E_{ij} \):
+    \[
+    T(E_{ij}) = A E_{ij} + E_{ij} A^\top = \lambda_i E_{ij} + \lambda_j E_{ij} = (\lambda_i + \lambda_j) E_{ij}
+    \]
+    Therefore, each \( E_{ij} \) is an eigenvector of \( T \) with eigenvalue \( \lambda_i + \lambda_j \).
+
+    \textbf{Eigenvalues:} All possible sums \( \lambda_i + \lambda_j \) for \( 1 \leq i, j \leq n \).
+
+    \textbf{Eigenvectors:} The standard basis matrices \( E_{ij} \).
+
+    \textbf{Multiplicity:} The multiplicity of each eigenvalue \( \lambda_i + \lambda_j \) corresponds to the number of pairs \( (i, j) \) that satisfy \( \lambda_i + \lambda_j \).
+    \end{solution}
+    
+    \item (6 points) Let \( A \) be a \( 3 \times 3 \) matrix with real entries such that \( A^2 = I \), where \( I \) is the identity matrix.
+    \begin{enumerate}
+        \item (3 points) Show that the eigenvalues of \( A \) must be \( \pm 1 \).
+        
+        \begin{solution}
+        Let \( \lambda \) be an eigenvalue of \( A \) with eigenvector \( \mathbf{v} \neq \mathbf{0} \). Then:
+        \[
+        A^2 \mathbf{v} = A(A\mathbf{v}) = A(\lambda \mathbf{v}) = \lambda A \mathbf{v} = \lambda^2 \mathbf{v}
+        \]
+        But \( A^2 = I \), so:
+        \[
+        A^2 \mathbf{v} = I \mathbf{v} = \mathbf{v}
+        \]
+        Therefore:
+        \[
+        \lambda^2 \mathbf{v} = \mathbf{v} \implies \lambda^2 = 1 \implies \lambda = \pm 1
+        \]
+        \end{solution}
+        
+        \item (3 points) Give the possible values for \( \det(A) \).
+        
+        \begin{solution}
+        Since the eigenvalues of \( A \) are \( \pm 1 \), the determinant of \( A \) is the product of its eigenvalues. For a \( 3 \times 3 \) matrix, the possible combinations of eigenvalues are:
+
+        - \( 1, 1, 1 \): \( \det(A) = 1 \)
+        - \( 1, 1, -1 \): \( \det(A) = -1 \)
+        - \( 1, -1, -1 \): \( \det(A) = 1 \)
+        - \( -1, -1, -1 \): \( \det(A) = -1 \)
+
+        Thus, the possible values for \( \det(A) \) are \( \pm 1 \).
+        \end{solution}
+    \end{enumerate}
+    
+    \item (8 points) Let \( V \) and \( W \) be subspaces of \( \mathbb{R}^n \) with \( V \cap W = \{0\} \). Let \( S = \text{proj}_V \) and \( T = \text{proj}_W \). Show that \( S \circ T = T \circ S \) if and only if \( V \) and \( W \) are orthogonal (i.e., \( v \cdot w = 0 \) for all \( v \in V \), \( w \in W \)). 
+        
+        \begin{solution}
+        
+        \textbf{Forward Direction (\( V \perp W \implies S \circ T = T \circ S \)):}
+
+        If \( V \) and \( W \) are orthogonal, then projecting onto \( V \) after projecting onto \( W \) is the same as projecting onto \( W \) after projecting onto \( V \). Specifically, since \( V \perp W \), the projections do not interfere with each other:
+        \[
+        S(T(\mathbf{x})) = S(\text{proj}_W(\mathbf{x})) = \text{proj}_V(\text{proj}_W(\mathbf{x})) = 0
+        \]
+        Similarly,
+        \[
+        T(S(\mathbf{x})) = T(\text{proj}_V(\mathbf{x})) = \text{proj}_W(\text{proj}_V(\mathbf{x})) = 0
+        \]
+        Hence, \( S \circ T = T \circ S \).
+
+        \textbf{Reverse Direction (\( S \circ T = T \circ S \implies V \perp W \)):}
+
+        Assume \( S \circ T = T \circ S \). Consider any \( v \in V \) and \( w \in W \). Then:
+        \[
+        S(T(v + w)) = S(\text{proj}_W(v + w)) = S(w) = 0
+        \]
+        \[
+        T(S(v + w)) = T(\text{proj}_V(v + w)) = T(v) = 0
+        \]
+        Since \( S \circ T = T \circ S \), we have:
+        \[
+        S(T(v + w)) = T(S(v + w)) \implies 0 = 0
+        \]
+        To show orthogonality, take \( v \in V \) and \( w \in W \). Since \( V \cap W = \{0\} \), the only way the projections commute is if \( \langle v, w \rangle = 0 \). Therefore, \( V \) and \( W \) are orthogonal.
+        \end{solution}
+    
+    \item (12 points total)
+    Suppose that \( N \) is a nilpotent \( n \times n \) matrix (this means \( N^r = 0 \) for some positive integer \( r \)).
+    \begin{enumerate}
+        \item (4 points) Show that \( 0 \) is the only eigenvalue of \( N \).
+        
+        \begin{solution}
+        Let \( \lambda \) be an eigenvalue of \( N \) with corresponding eigenvector \( \mathbf{v} \neq \mathbf{0} \). Then:
+        \[
+        N^r \mathbf{v} = \lambda^r \mathbf{v} = 0 \implies \lambda^r = 0 \implies \lambda = 0
+        \]
+        Therefore, the only eigenvalue of \( N \) is \( 0 \).
+
+        It is always an eigenvalue because $N$ is singular. It is singular because $0 = \det(0) = \det(N^r) = \det(N)^r \implies \det(N) = 0$
+        \end{solution}
+        
+        \item (4 points) Prove $\det(N + I) = 1$. (Hint: eigenvalues)
+        
+        \begin{solution}
+        Since \( N \) is nilpotent, all its eigenvalues are \( 0 \). The eigenvalues of \( N + I \) are \( 0 + 1 = 1 \).
+
+        The determinant of a matrix is the product of its eigenvalues. Therefore:
+        \[
+        \det(N + I) = \prod_{i=1}^n 1 = 1
+        \]
+        \end{solution}
+        
+        \item (4 points) Show that $ANA^{-1}$ is also nilpotent for the same $r$.
+        
+        \begin{solution}
+        Given that \( N^r = 0 \), consider \( ANA^{-1} \):
+        \[
+        (ANA^{-1})^r = A N^r A^{-1} = A 0 A^{-1} = 0
+        \]
+        Therefore, \( ANA^{-1} \) is nilpotent with the same index \( r \).
+        \end{solution}
+    \end{enumerate}
+    
+    \item (15 points total)
+    \begin{enumerate}
+        \item (8 points) Prove that a symmetric matrix \( A \) satisfies \( x^\top A x \geq 0 \) for all \( x \in \mathbb{R}^n \) if and only if \( A \) has only non-negative eigenvalues.
+    
+        \begin{solution}
+        
+        (\(\Rightarrow\)) Assume \( x^\top A x \geq 0 \) for all \( x \in \mathbb{R}^n \).
+
+        Since \( A \) is symmetric, it is diagonalizable with real eigenvalues. Let \( \mathbf{v} \) be an eigenvector of \( A \) with eigenvalue \( \lambda \):
+        \[
+        \mathbf{v}^\top A \mathbf{v} = \lambda \mathbf{v}^\top \mathbf{v} \geq 0
+        \]
+        Since \( \mathbf{v}^\top \mathbf{v} > 0 \), it follows that \( \lambda \geq 0 \).
+
+        (\(\Leftarrow\)) Assume all eigenvalues of \( A \) are non-negative. Let \( A = Q \Lambda Q^\top \), where \( Q \) is orthogonal and \( \Lambda \) is diagonal with non-negative entries. Then:
+        \[
+        x^\top A x = x^\top Q \Lambda Q^\top x = (Q^\top x)^\top \Lambda (Q^\top x) = y^\top \Lambda y = \sum_{i=1}^n \lambda_i y_i^2 \geq 0
+        \]
+        since \( \lambda_i \geq 0 \) and \( y_i^2 \geq 0 \).
+        \end{solution}
+        
+        \item (3 points) Let \( B \) be a real \( n \times n \) matrix. Argue why \( B^T B \) is diagonalizable and that all the eigenvalues of \( B^T B \) are nonnegative.
+    
+        \begin{solution}
+        \( B^T B \) is symmetric because \( (B^T B)^T = B^T B \). All symmetric matrices are diagonalizable via an orthogonal transformation. Additionally, for any vector \( x \),
+        \[
+        x^\top B^T B x = (Bx)^\top (Bx) = \lVert Bx \rVert^2 \geq 0
+        \]
+        This shows that \( B^T B \) is positive semidefinite, and hence all its eigenvalues are nonnegative.
+        \end{solution}
+        
+        \item (4 points) Prove that \( A^\top A + I \) is invertible for any matrix \( A \).
+        
+        \begin{solution}
+        Consider the matrix \( A^\top A + I \). Since \( A^\top A \) is positive semidefinite, all its eigenvalues are nonnegative. Adding the identity matrix shifts all eigenvalues by 1, making them strictly positive. Therefore, \( A^\top A + I \) is positive definite and hence invertible.
+        \end{solution}
+    \end{enumerate}
+    
+    \item (3 points) If \( U \) is an orthogonal matrix, argue that \( \| Ux \|_2^2 = \| x \|_2^2 \).
+    
+    \begin{solution}
+    Since \( U \) is orthogonal, \( U^\top U = I \). Therefore:
+    \[
+    \| Ux \|_2^2 = (Ux)^\top (Ux) = x^\top U^\top U x = x^\top I x = \| x \|_2^2
+    \]
+    \end{solution}
+    
+    \item (3 points) If \( x^\top A^\top A x = 0 \), what can we say about \( x \)?
+    
+        \begin{solution}
+        \( x^\top A^\top A x = \| Ax \|_2^2 = 0 \) implies that \( Ax = \mathbf{0} \). Therefore, \( x \) is in the null space of \( A \).
+        \end{solution}
+    
+    \item (6 points) The Vandermonde matrix $V$ below is used to find a polynomial of degree $n-1$ that passes through the $n$ points. 
+    
+    $$\begin{pmatrix}
+1 & x_1 & x_1^2 & \cdots & x_1^{n-1} \\
+1 & x_2 & x_2^2 & \cdots & x_2^{n-1} \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & x_n & x_n^2 & \cdots & x_n^{n-1}
+\end{pmatrix}
+\begin{pmatrix}
+a_0 \\
+a_1 \\
+a_2 \\
+\vdots \\
+a_{n-1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{pmatrix}$$
+    \begin{enumerate}
+        \item 
+    
+    Suppose I told you $\det(V) = \prod_{1 \leq i  < j \leq n} (x_j - x_i)$. Prove $V$ is invertible if and only if the $x_i$ are distinct.
+    
+    \begin{solution}
+    Given \( \det(V) = \prod_{1 \leq i < j \leq n} (x_j - x_i) \).
+
+    - If all \( x_i \) are distinct, then \( x_j - x_i \neq 0 \) for all \( i < j \), hence \( \det(V) \neq 0 \). Therefore, \( V \) is invertible.
+
+    - Conversely, if \( V \) is invertible, \( \det(V) \neq 0 \), which implies \( \prod_{1 \leq i < j \leq n} (x_j - x_i) \neq 0 \). This means that \( x_j \neq x_i \) for all \( i < j \), so all \( x_i \) are distinct.
+
+    Thus, \( V \) is invertible if and only if the \( x_i \) are distinct.
+    \end{solution}
+    
+    \item Explain why invertibility is useful in this application and how it relates to the uniqueness of polynomials that fit the points.
+    
+        \begin{solution}
+        Invertibility of the Vandermonde matrix \( V \) ensures that the system of equations has a unique solution. This means that there exists exactly one set of coefficients \( \{a_0, a_1, \dots, a_{n-1}\} \) for the polynomial \( p(x) = a_0 + a_1 x + \dots + a_{n-1}x^{n-1} \) that passes through the \( n \) distinct points \( (x_i, y_i) \). Without invertibility, there could be either no solution or infinitely many solutions, compromising the uniqueness of the fitting polynomial.
+        \end{solution}
+    \end{enumerate}
+    
+    \item (8 points) Suppose that \( A \) and \( B \) are real symmetric matrices that commute (i.e., \( AB = BA \)). Prove that there is an orthogonal matrix \( Q \) such that both \( Q^{-1} A Q \) and \( Q^{-1} B Q \) are diagonal. (Hint: Explain why it suffices to prove that \( B \) preserves each eigenspace of \( A \). Prove this fact using the fact that \( A \) and \( B \) commute.)
+    
+    \begin{solution}
+    Since \( A \) is symmetric, it is diagonalizable via an orthogonal matrix \( Q \), such that \( Q^\top A Q = \Lambda \), where \( \Lambda \) is diagonal.
+
+    Because \( A \) and \( B \) commute (\( AB = BA \)), \( B \) preserves the eigenspaces of \( A \). This means that \( B \) maps each eigenspace of \( A \) to itself.
+
+    Therefore, within each eigenspace of \( A \), \( B \) acts as a linear operator. Since \( A \) is symmetric and \( B \) is symmetric, \( B \) restricted to each eigenspace of \( A \) is also symmetric.
+
+    By the spectral theorem, \( B \) can be diagonalized within each eigenspace of \( A \). Thus, there exists an orthogonal matrix \( Q \) that simultaneously diagonalizes both \( A \) and \( B \).
+
+    Hence, both \( Q^\top A Q \) and \( Q^\top B Q \) are diagonal matrices.
+    \end{solution}
+    
+    \item (12 points total) 
+    \begin{enumerate}
+        \item (6 points) If \( A \) is an \( n \times n \) matrix with integer entries, prove that \( A \) has an inverse with integer entries if and only if \( \det(A) = \pm 1 \).
+        
+        \begin{solution}
+        (\(\Rightarrow\)) Suppose \( A \) has an inverse \( A^{-1} \) with integer entries. Then:
+        \[
+        A A^{-1} = I \implies \det(A) \det(A^{-1}) = 1
+        \]
+        Since both \( \det(A) \) and \( \det(A^{-1}) \) are integers (as determinants of integer matrices are integers), the only integer solutions to \( \det(A) \det(A^{-1}) = 1 \) are \( \det(A) = \pm 1 \) and \( \det(A^{-1}) = \pm 1 \).
+
+        (\(\Leftarrow\)) Suppose \( \det(A) = \pm 1 \). By Cramer's rule, the entries of \( A^{-1} \) are given by \( \frac{1}{\det(A)} \) times the cofactors of \( A \). Since \( \det(A) = \pm 1 \) and the cofactors are integers (as \( A \) has integer entries), \( A^{-1} \) has integer entries.
+        \end{solution}
+        
+        \item (6 points) Show that if \( A \) and \( B \) are \( 2 \times 2 \) matrices with integer entries, and \( A, A+B, A+2B, A+3B, \) and \( A+4B \) all have inverses with integer entries, then the same is true for \( A + tB \) for all integers \( t \). (Hint: consider \( \det(A + tB) \) as a polynomial in \( t \). Show that it is always equal to \( 1 \) or \( -1 \).)
+        
+        \begin{solution}
+        Consider \( \det(A + tB) \) for \( t = 0, 1, 2, 3, 4 \). Given that \( A + tB \) is invertible with integer entries, \( \det(A + tB) = \pm 1 \) for these values of \( t \).
+
+        Since \( \det(A + tB) \) is a quadratic polynomial in \( t \) (for \( 2 \times 2 \) matrices), and it takes the value \( \pm 1 \) at five distinct integer points (\( t = 0,1,2,3,4 \)), the polynomial must be constant (a non-constant quadratic cannot take the same value at five distinct points). Therefore, \( \det(A + tB) = \pm 1 \) for all integers \( t \).
+
+        Consequently, \( A + tB \) is invertible with integer entries for all integers \( t \).
+        \end{solution}
+    \end{enumerate}
+    
+    \item (6 points) Suppose that \( A \) is an \( m \times n \) matrix with rank \( m \). Suppose that \( v_1, \ldots, v_k \) span \( \mathbb{R}^n \), that is to say, for every \( x \) in \( \mathbb{R}^n \) there exist real coefficients \( c_1, \ldots, c_k \) such that \( x = c_1 v_1 + \ldots + c_k v_k \). Show that \( \{ A v_1, \ldots, A v_k \} \) span \( \mathbb{R}^m \).
+    
+    \begin{solution}
+    Since \( A \) has rank \( m \), its image \( \text{Im}(A) = \mathbb{R}^m \).
+
+    Given that \( \{ v_1, \ldots, v_k \} \) span \( \mathbb{R}^n \), for any \( y \in \mathbb{R}^m \), there exists \( x \in \mathbb{R}^n \) such that \( y = Ax \).
+
+    Since \( x \) can be expressed as \( x = \sum_{i=1}^k c_i v_i \), we have:
+    \[
+    y = A\left( \sum_{i=1}^k c_i v_i \right) = \sum_{i=1}^k c_i A v_i
+    \]
+    Therefore, every \( y \in \mathbb{R}^m \) can be expressed as a linear combination of \( \{ A v_1, \ldots, A v_k \} \), proving that they span \( \mathbb{R}^m \).
+    \end{solution}
+    
+    \item (5 points ) Let \( A \) be the matrix \( \begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{pmatrix} \).
+      
+      Prove or disprove: For all \( b \) in \( \mathbb{R}^2 \), there exists \( u_0 \) in \( \mathbb{R}^3 \) such that \( Au_0 = b \), and so that the following sets \( U \) and \( V \) are equal.
+        \[
+        U = \{ u : Au = b \}
+        \]
+        \[
+        V = \{ u : u = u_0 + v, \text{ where } Av = 0 \}
+        \]
+    
+    \begin{solution}
+\textbf{ \( U = V \) for all \( b \in \mathbb{R}^2 \).}
+
+
+1. Existence of \( u_0 \):
+
+   Since \( A \) is a \( 2 \times 3 \) matrix with rank 2 (its rows are linearly independent), for every \( b \in \mathbb{R}^2 \), there exists at least one \( u_0 \in \mathbb{R}^3 \) such that \( Au_0 = b \).
+
+2. Showing \( U \subseteq V \):
+
+   Let \( u \in U \). Then \( Au = b \). Since \( Au_0 = b \), subtracting gives:
+   \[
+   A(u - u_0) = Au - Au_0 = 0
+   \]
+   Let \( v = u - u_0 \). Then \( Av = 0 \), implying \( u = u_0 + v \) with \( v \in \ker(A) \). Therefore, \( u \in V \).
+
+3. Showing \( V \subseteq U \):
+
+   Let \( u \in V \). Then \( u = u_0 + v \) for some \( v \in \ker(A) \). Applying \( A \):
+   \[
+   Au = A(u_0 + v) = Au_0 + Av = b + 0 = b
+   \]
+   Hence, \( u \in U \).
+
+
+   Since \( U \subseteq V \) and \( V \subseteq U \), it follows that \( U = V \).
+
+\end{solution}
+    
+    \item (6 points) Let \( A \) be any \( n \times n \) matrix with real entries, and let \( I_n \) denote the \( n \times n \) identity matrix. Show that
+    \[
+    \det(I_n + A^2) \geq 0.
+    \]
+    Note: this is a generalization of $I_n+A^TA$ except it can now be singular. 
+    
+    \begin{solution}
+    Consider the eigenvalues of \( A \). Let \( \lambda \) be an eigenvalue of \( A \) with corresponding eigenvector \( \mathbf{v} \).
+
+    Then:
+    \[
+    A^2 \mathbf{v} = \lambda^2 \mathbf{v}
+    \]
+    Thus, the eigenvalues of \( A^2 \) are \( \lambda^2 \), which are nonnegative.
+
+    The eigenvalues of \( I_n + A^2 \) are \( 1 + \lambda^2 \), which are always \( \geq 1 \).
+
+    Since all eigenvalues of \( I_n + A^2 \) are positive, \( \det(I_n + A^2) \) is the product of positive numbers, hence \( \det(I_n + A^2) \geq 0 \).
+    \end{solution}
+        
+    \item (Bonus Questions - Extra Credit) Let \( A = (a_{ij}) \) be a real \( n \times n \) matrix satisfying
+\[
+|a_{ii}| > \sum_{j \neq i} |a_{ij}|
+\]
+for all \( 1 \leq i \leq n \). Prove that \( A \) is invertible.
+
+\noindent\text{Note:} These questions are tricky, and there are easier ways to earn points on this exam. No partial credit will be awarded.    
+    
+    \begin{solution}
+    The condition \( |a_{ii}| > \sum_{j \neq i} |a_{ij}| \) for all \( i \) implies that \( A \) is strictly diagonally dominant.
+
+    By the Levy-Desplanques theorem, any strictly diagonally dominant matrix is invertible. Therefore, \( A \) is invertible.
+    \end{solution}
+    
+\end{enumerate}
+
+\end{document}
