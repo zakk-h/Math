@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Proof of the Singular Value Decomposition (SVD)}
+\author{Zakk Heile}
+\date{December 2024}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+The Singular Value Decomposition (SVD) is a fundamental theorem in linear algebra with numerous applications in areas such as statistics, signal processing, and machine learning. This document provides a detailed proof of the SVD, demonstrating that any \( m \times n \) matrix \( A \) can be decomposed into the product of three matrices: \( A = U \Sigma V^\top \), where \( U \) and \( V \) are orthogonal matrices, and \( \Sigma \) is a diagonal matrix containing the singular values of \( A \).
+
+\section{Preliminaries}
+
+Let \( A \) be an \( m \times n \) matrix. Consider the Gram matrices \( A A^\top \) and \( A^\top A \). Both of these matrices are symmetric and positive semi-definite (PSD), implying that their eigenvalues are non-negative. 
+
+\subsection{Positive Semi-Definiteness of Gram Matrices}
+
+\begin{proof}[Proof of Non-Negative Eigenvalues]
+A Gram matrix \( G = M^\top M \) is always positive semi-definite. For any vector \( x \in \mathbb{R}^n \), we have:
+\[
+x^\top G x = x^\top M^\top M x = \left( M x \right)^\top \left( M x \right) = \| M x \|^2 \geq 0.
+\]
+Here, \( \| M x \|^2 \) represents the squared Euclidean norm of the vector \( M x \), which is always non-negative.
+\end{proof}
+
+\section{Eigenvalues of \( A^\top A \) and \( A A^\top \)}
+
+Both \( A^\top A \) and \( A A^\top \) are symmetric and PSD matrices, hence they have real, non-negative eigenvalues. Let us denote the eigenvalues of \( A^\top A \) by \( \sigma_i^2 \) and those of \( A A^\top \) by the same \( \sigma_i^2 \). The non-zero eigenvalues of these two Gram matrices are identical, and the remaining eigenvalues are zero.
+
+\subsection{Equivalence of Non-Zero Eigenvalues}
+
+\textbf{Direction 1: From \( A^\top A \) to \( A A^\top \)}
+
+Assume \( A^\top A x = \lambda x \) with \( \lambda \neq 0 \) and \( x \neq 0 \).
+
+\[
+A A^\top (A x) = A (A^\top A x) = A (\lambda x) = \lambda (A x).
+\]
+
+Define \( y = A x \). Then:
+
+\[
+A A^\top y = \lambda y.
+\]
+
+Since \( \lambda \neq 0 \) and \( x \neq 0 \), \( y \neq 0 \). Thus, \( y \) is an eigenvector of \( A A^\top \) corresponding to the eigenvalue \( \lambda \).
+
+\textbf{Direction 2: From \( A A^\top \) to \( A^\top A \)}
+
+Assume \( A A^\top y = \mu y \) with \( \mu \neq 0 \) and \( y \neq 0 \).
+
+\[
+A^\top A (A^\top y) = A^\top (A A^\top y) = A^\top (\mu y) = \mu (A^\top y).
+\]
+
+Define \( x = A^\top y \). Then:
+
+\[
+A^\top A x = \mu x.
+\]
+
+Since \( \mu \neq 0 \) and \( y \neq 0 \), \( x \neq 0 \). Thus, \( x \) is an eigenvector of \( A^\top A \) corresponding to the eigenvalue \( \mu \).
+
+\subsection{Multiplicity of Zero Eigenvalues}
+
+The eigenvalue \( 0 \) corresponds to the nullspace of \( A \) and \( A^\top \). The multiplicity of the eigenvalue \( 0 \) in \( A^\top A \) is equal to the dimension of the nullspace of \( A \), and similarly for \( A A^\top \).
+
+\section{Constructing the SVD}
+
+Consider an eigenvector-eigenvalue pair of \( A^\top A \):
+
+\[
+A^\top A v_i = \sigma_i^2 v_i.
+\]
+
+Define \( u_i = \dfrac{A v_i}{\sigma_i} \). We claim that \( u_i \) is a unit eigenvector of \( A A^\top \). Note that we are assuming the singular value is not 0.
+
+\begin{proof}[Proof that \( u_i \) is an Eigenvector of \( A A^\top \)]
+\[
+A A^\top u_i = A A^\top \left( \dfrac{A v_i}{\sigma_i} \right) = \dfrac{A A^\top A v_i}{\sigma_i} = \dfrac{A \sigma_i^2 v_i}{\sigma_i} = \sigma_i A v_i = \sigma_i^2 u_i.
+\]
+Thus, \( u_i \) satisfies \( A A^\top u_i = \sigma_i^2 u_i \), making it an eigenvector of \( A A^\top \) with eigenvalue \( \sigma_i^2 \).
+\end{proof}
+
+\begin{proof}[Proof that \( u_i \) is a Unit Vector]
+\[
+u_i^\top u_i = \left( \dfrac{A v_i}{\sigma_i} \right)^\top \left( \dfrac{A v_i}{\sigma_i} \right) = \dfrac{v_i^\top A^\top A v_i}{\sigma_i^2} = \dfrac{v_i^\top (\sigma_i^2 v_i)}{\sigma_i^2} = v_i^\top v_i = 1.
+\]
+Thus, \( u_i \) is a unit vector.
+\end{proof}
+
+\subsection{Forming the Orthogonal Matrices}
+
+From the above constructions, we have:
+\[
+U = A V \Sigma^{-1},
+\]
+where \( V \) is the matrix whose columns are the eigenvectors \( v_i \) of \( A^\top A \), and \( \Sigma \) is the diagonal matrix with entries \( \sigma_i \). Since \( U \) consists of orthonormal vectors \( u_i \), it is an orthogonal matrix.
+
+Similarly, \( V \) is orthogonal by construction.
+
+\subsection{A Note on Rank}
+
+How do we know that the matrices are orthogonal and sufficient rank, namely that $V$ has an inverse? Additionally, we are still assuming no singular values are 0 so $\Sigma$ has an inverse.
+
+If $A$ is injective then $v_i \mapsto u_i$ is an injective map. 
+
+Formally, suppose for the sake of contradiction:
+
+$$A^\top A v_1 = \sigma_1^2 v_1$$
+
+$$A^\top A v_2 = \sigma_2^2 v_2$$
+
+$$A v_1 = A v_2$$
+
+Then, $Av_1 - Av_2 = 0$ and as they are equal, both of them must be 0, meaning both $v_1$ and $v_2$ are in the null space of $A$. This means they are 0-eigenvalue eigenvectors of $A$, meaning they are $\sigma_i^2 = 0^2 = 0$ eigenvalue eigenvectors of their Gram matrices.
+
+Thus, we only have to worry about this if the diagonal matrix has non-trivial null space.
+
+If \( \Sigma \) has a non-trivial null space, we extend \( U \) and \( V \) to full orthogonal matrices by adding orthonormal vectors that span the nullspaces of \( A^\top \) and \( A \), respectively. These additional vectors correspond to singular values of zero, ensuring that \( U \) and \( V \) remain orthogonal regardless of the rank of \( A \).
+
+
+\section{Conclusion: The SVD}
+
+Putting everything together, we obtain the Singular Value Decomposition of \( A \):
+
+\[
+A = U \Sigma V^\top,
+\]
+
+where:
+\begin{itemize}
+    \item \( U \) is an \( m \times m \) orthogonal matrix whose columns are the eigenvectors of \( A A^\top \),
+    \item \( \Sigma \) is an \( m \times n \) diagonal matrix with non-negative real numbers \( \sigma_i \) on the diagonal,
+    \item \( V \) is an \( n \times n \) orthogonal matrix whose columns are the eigenvectors of \( A^\top A \).
+\end{itemize}
+
+This decomposition reveals the intrinsic geometric structure of the matrix \( A \), facilitating various applications in numerical analysis, data compression, and beyond.
+
+\section{Rank Considerations}
+
+Understanding the rank of a matrix and its Gram matrices is crucial, especially when dealing with matrices that are not full rank. The following section elucidates the relationship between the ranks of \( A \), \( A^\top A \), and \( A A^\top \).
+
+\subsection{Equivalence of Ranks}
+
+If we can show that \( \text{rank}(A) = \text{rank}(A^\top A) \), then because \( \text{rank}(A) = \text{rank}(A^\top) \), it follows that:
+\[
+\text{rank}(A) = \text{rank}(A^\top) = \text{rank}(A A^\top).
+\]
+
+\textit{Proof that \( \text{rank}(A) = \text{rank}(A^\top A) \)}
+
+We need to show that the solution sets of \( A x = 0 \) and \( A^\top A x = 0 \) are identical, i.e., \( A x = 0 \iff A^\top A x = 0 \).
+
+\begin{proof}
+\textbf{Forward Direction:} Assume \( A x = 0 \). Then:
+\[
+A^\top (A x) = A^\top 0 = 0,
+\]
+which shows \( A^\top A x = 0 \).
+
+\textbf{Conversely:} Assume \( A^\top A x = 0 \). Then:
+\[
+x^\top (A^\top A x) = 0.
+\]
+
+Expanding this, we have:
+\[
+(A x)^\top (A x) = \| A x \|^2 = 0.
+\]
+
+By the definition of the inner product, for any vector \( v \), \( v^\top v = 0 \iff v = 0 \). Thus, \( A x = 0 \).
+
+Therefore, \( A x = 0 \iff A^\top A x = 0 \), which implies that:
+\[
+\text{null}(A) = \text{null}(A^\top A).
+\]
+\end{proof}
+
+Since the nullspaces are identical, their dimensions are equal. Consequently, the ranks satisfy:
+\[
+\text{rank}(A) = \text{rank}(A^\top A).
+\]
+Similarly, by considering \( A^\top \), we can show that:
+\[
+\text{rank}(A) = \text{rank}(A^\top) = \text{rank}(A A^\top).
+\]
+
+\section{Singular Values and Rank}
+
+Given that \( \text{rank}(A) = r \), where \( r \leq \min(m, n) \), the SVD of \( A \) can be expressed as:
+\[
+A = U \Sigma V^\top,
+\]
+where:
+\begin{itemize}
+    \item \( U \) is an \( m \times m \) orthogonal matrix whose first \( r \) columns are the eigenvectors of \( A A^\top \) corresponding to the non-zero singular values, and the remaining \( m - r \) columns span the nullspace of \( A^\top \).
+    \item \( \Sigma \) is an \( m \times n \) diagonal matrix with the first \( r \) diagonal entries being the positive singular values \( \sigma_1, \sigma_2, \dots, \sigma_r \) and the remaining entries being zero.
+    \item \( V \) is an \( n \times n \) orthogonal matrix whose first \( r \) columns are the eigenvectors of \( A^\top A \) corresponding to the non-zero singular values, and the remaining \( n - r \) columns span the nullspace of \( A \).
+\end{itemize}
+\end{document}
